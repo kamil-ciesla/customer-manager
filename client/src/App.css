@@ -1,0 +1,11 @@
+.customer-form{
+    display:flex;
+    flex-direction: column;
+    width: 25%;
+    background-color: blanchedalmond;
+    padding: 1rem;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 5rem;
+
+}
