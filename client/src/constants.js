@@ -1,0 +1,1 @@
+export const SERVER_BASE_LINK = 'http://localhost:5000'

@@ -1,23 +1,41 @@
 import './App.css';
+import CustomerForm from './components/CustomerForm'
+import CustomersView from './components/CustomersView'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import axios from 'axios';
+import * as constants from './constants'
 
 function App() {
+  const [currentView, setCurrentView] = useState(<CustomerForm />);
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => { updateCustomers() }, [])
+
+  async function updateCustomers() {
+    const result = await axios(constants.SERVER_BASE_LINK + '/customers');
+    setCustomers(result.data);
+    console.log('Updated customers');
+  }
+
   return (
     <div className="App">
-      <form className="customer-form" action="http://localhost:5000/add-customer" method="POST">
-        Name:
-        <input type="text" name="name" />
-        VAT number:
-        <input type="text" name="vatNumber" />
-        Country code:
-        <input type="text" name="countryCode" />
-        Address:
-        <input type="text" name="address" />
-
-        <button type="submit">
-          Add customer
-        </button>
-      </form>
-    </div>
+      <div id="mainContainer">
+        <div id="navigation">
+          <button onClick={() => { setCurrentView(<CustomerForm />) }}>
+            Add Customer
+          </button>
+          <button onClick={async () => {
+            await updateCustomers();
+            console.log(customers);
+            setCurrentView(<CustomersView customers={customers} />)
+          }}>
+            Customers list
+          </button>
+        </div>
+        {currentView}
+      </div>
+    </div >
   );
 }
 

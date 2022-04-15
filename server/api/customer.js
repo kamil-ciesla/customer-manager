@@ -1,12 +1,13 @@
 module.exports = class Customer {
     static idCounter = 1;
-    constructor(name, vatNumber, countryCode, address) {
+
+    constructor(args) {
         this.id = Customer.idCounter;
         Customer.idCounter++;
-        this.name = name;
-        this.vatNumber = vatNumber;
-        this.countryCode = countryCode;
-        this.address = address;
+        this.name = args.name;
+        this.vatNumber = args.vatNumber;
+        this.countryCode = args.countryCode;
+        this.address = args.address;
         this.creationDate = new Date();
     }
     get data() {

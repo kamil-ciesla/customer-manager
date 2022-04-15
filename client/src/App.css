@@ -1,11 +1,18 @@
-.customer-form{
+#mainContainer{
     display:flex;
     flex-direction: column;
-    width: 25%;
-    background-color: blanchedalmond;
-    padding: 1rem;
+    width: 15%;
+    background-color: rgb(191, 255, 186);
+    padding: 2rem;
     border-radius: 10px;
     margin: auto;
     margin-top: 5rem;
-
+}
+.customer-form{
+}
+#navigation{
+    display: flex;
+}
+#navigation button{
+    flex-grow: 1;
 }
