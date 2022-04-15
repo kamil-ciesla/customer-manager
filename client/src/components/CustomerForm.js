@@ -19,7 +19,6 @@ function CustomerForm(props) {
     }
 
     function addCustomer(event) {
-        console.log(JSON.stringify(formValues));
         fetch(constants.SERVER_BASE_LINK + '/add-customer', {
             method: 'POST',
             mode: 'cors',
@@ -33,7 +32,6 @@ function CustomerForm(props) {
             referrerPolicy: 'no-referrer',
             body: JSON.stringify(formValues)
         }).then(function (response) {
-            console.log(response)
             return response.json();
         });
         event.preventDefault();

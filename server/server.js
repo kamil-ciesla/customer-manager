@@ -43,6 +43,8 @@ app.get("/customer/:id", (req, res) => {
     res.send(customers[req.id]);
 });
 app.get("/customers", (req, res) => {
+    console.log('sending customers');
+    console.log(customers.length);
     res.send(customers);
 });
 
