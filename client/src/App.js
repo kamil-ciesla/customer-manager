@@ -1,6 +1,9 @@
 import './App.css';
 import CustomerForm from './components/CustomerForm'
 import CustomersView from './components/CustomersView'
+import Navigation from './components/Navigation'
+import Header from './components/Header'
+import CheckedList from './components/CheckedList'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios';
@@ -15,23 +18,33 @@ function App() {
     const result = await axios(constants.SERVER_BASE_LINK + '/customers');
     setCustomers(result.data);
   }
+  const customerFormButton = (
+    <button onClick={() => { setCurrentView('CustomerForm') }}
+      key={1}>
+      Add Customer
+    </button>
+  )
+  const customersViewButton = (
+    <button onClick={() => {
+      updateCustomers();
+      setCurrentView('CustomersView');
+    }}
+      key={2}>
+      Customers list
+    </button>
+  )
 
   return (
     <div className="App">
-      <div id="mainContainer">
-        <div id="navigation">
-          <button onClick={() => { setCurrentView('CustomerForm') }}>
-            Add Customer
-          </button>
-          <button onClick={() => {
-            updateCustomers();
-            setCurrentView('CustomersView');
-          }}>
-            Customers list
-          </button>
+      <Header title='Customer Manager' />
+      <div className="main-content">
+        <div className="leftSide">
+          <Navigation options={[customerFormButton, customersViewButton]} />
+          <CustomerForm />
         </div>
-        {currentView === 'CustomerForm' && <CustomerForm />
-          || currentView === 'CustomersView' && <CustomersView customers={customers} />}
+        <div className="rightSide">
+          <CustomersView customers={customers} />
+        </div>
       </div>
     </div >
   );

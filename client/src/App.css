@@ -1,18 +1,42 @@
-#mainContainer{
+.main-content{
     display:flex;
-    flex-direction: column;
-    width: 15%;
-    background-color: rgb(191, 255, 186);
-    padding: 2rem;
-    border-radius: 10px;
+    flex-direction: row;
     margin: auto;
     margin-top: 5rem;
+    width:80%;
+    border: 2px solid red;
 }
-.customer-form{
+.leftSide{
+    width: 40%;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: rgb(191, 255, 186);
 }
-#navigation{
+.rightSide{
+    width: 60%;
+    background-color: burlywood;
+}
+.CustomerForm{
+    width:50%;
+  display: flex;
+  flex-direction: column;
+
+}
+.CustomersView{
+}
+.customer-short{
+    display: flex;
+    flex-direction: row;
+}
+.Navigation{
     display: flex;
 }
-#navigation button{
+.Navigation button{
     flex-grow: 1;
+}
+.Header{
+    font-size: large;
+    background-color: blue;
+    color: aliceblue;
+    width:min-content;
 }

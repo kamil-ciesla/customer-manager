@@ -1,11 +1,25 @@
 import { useState } from 'react'
 
+
 function CustomersView(props) {
     const customersList = props.customers.map((customer) =>
-        <li key={customer.id}>{customer.name}</li>
+        <div className="customer-short" key={customer.id}>
+            <div>
+                {customer.name}
+            </div>
+            <div>
+                {customer.vatNumber}
+            </div>
+            <div>
+                {customer.countryCode}
+            </div>
+            <div>
+                {customer.address}
+            </div>
+        </div>
     )
     return (
-        <div>
+        <div className='CustomersView'>
             {customersList}
         </div>
     )

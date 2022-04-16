@@ -31,8 +31,14 @@ validate("pl", "1234567890", function (err, validationInfo) {
 const customers = [];
 
 console.log("Testing customer");
-const c1 = new Customer({ name: "joe", nip: "123456789", countryCode: 'pl', address: "cracow 12" });
-customers.push(c1);
+const testCustomersData = [
+    { name: "Joe", nip: "123456789", countryCode: 'pl', address: "Cracow 12" },
+    { name: "Kayle", nip: "987654321", countryCode: 'gb', address: "London 12" },
+    { name: "Sheila", nip: "546738292", countryCode: 'fr', address: "Paris 12" },
+]
+for (const customerData of testCustomersData) {
+    customers.push(new Customer(customerData));
+}
 
 app.param("id", function (req, res, next, id) {
     req.id = parseInt(id);

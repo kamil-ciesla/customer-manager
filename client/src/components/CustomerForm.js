@@ -37,15 +37,23 @@ function CustomerForm(props) {
         event.preventDefault();
     }
     return (
-        <form className="customer-form" onSubmit={addCustomer} method="POST">
-            Name:
-            <input type="text" value={formValues.name} name="name" onChange={handleInputChange} />
-            VAT number:
-            <input type="text" value={formValues.vatNumber} name="vatNumber" onChange={handleInputChange} />
-            Country code:
-            <input type="text" value={formValues.countryCode} name="countryCode" onChange={handleInputChange} />
-            Address:
-            <input type="text" value={formValues.address} name="address" onChange={handleInputChange} />
+        <form className="CustomerForm" onSubmit={addCustomer} method="POST">
+            <label htmlFor="name">
+                Name:
+            </label>
+            <input type="text" id="name" value={formValues.name} name="name" onChange={handleInputChange} />
+            <label htmlFor="vatNumber">
+                VAT number:
+            </label>
+            <input type="text" id="vatNumber" value={formValues.vatNumber} name="vatNumber" onChange={handleInputChange} />
+            <label htmlFor="countryCode">
+                Country code:
+            </label>
+            <input type="text" id="countryCode" value={formValues.countryCode} name="countryCode" onChange={handleInputChange} />
+            <label htmlFor="address">
+                Address:
+            </label>
+            <input type="text" id="address" value={formValues.address} name="address" onChange={handleInputChange} />
             <button type="submit">
                 Add
             </button>
