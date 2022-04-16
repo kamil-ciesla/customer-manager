@@ -1,6 +1,8 @@
+import styles from './header.css'
+
 export default function (props) {
     return (
-        <div className="Header">
+        <div className="header">
             {props.title}
         </div>
     )

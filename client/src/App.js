@@ -3,47 +3,42 @@ import CustomerForm from './components/CustomerForm'
 import CustomersView from './components/CustomersView'
 import Navigation from './components/Navigation'
 import Header from './components/Header'
-import CheckedList from './components/CheckedList'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useCallback } from 'react'
+
 import axios from 'axios';
 import * as constants from './constants'
 
 function App() {
-  const [currentView, setCurrentView] = useState('CustomerForm');
   const [customers, setCustomers] = useState([]);
-
-  useEffect(() => { updateCustomers() }, [])
-  async function updateCustomers() {
+  const [usersSend, setUsersSend] = useState(1);
+  const updateCustomers = useCallback(async () => {
+    console.log('updating');
     const result = await axios(constants.SERVER_BASE_LINK + '/customers');
     setCustomers(result.data);
+  }, [])
+
+  // the useEffect is only there to call `fetchData` at the right time
+  useEffect(() => {
+    console.log(usersSend);
+    updateCustomers()
+      // make sure to catch any error
+      .catch(console.error);;
+  }, [usersSend])
+  function incrementUS() {
+    setUsersSend(usersSend + 1);
   }
-  const customerFormButton = (
-    <button onClick={() => { setCurrentView('CustomerForm') }}
-      key={1}>
-      Add Customer
-    </button>
-  )
-  const customersViewButton = (
-    <button onClick={() => {
-      updateCustomers();
-      setCurrentView('CustomersView');
-    }}
-      key={2}>
-      Customers list
-    </button>
-  )
 
   return (
     <div className="App">
-      <Header title='Customer Manager' />
+      <Header title={`Customer Manager ${usersSend}`} />
       <div className="main-content">
-        <div className="leftSide">
-          <Navigation options={[customerFormButton, customersViewButton]} />
-          <CustomerForm />
+        <div className="left-side">
+          <CustomerForm action={() => { incrementUS(); }} />
         </div>
-        <div className="rightSide">
-          <CustomersView customers={customers} />
+        <div className="right-side  ">
+          {customers.length && <CustomersView customers={customers} />}
         </div>
       </div>
     </div >

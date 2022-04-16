@@ -1,0 +1,6 @@
+.navigation{
+    display: flex;
+}
+.navigation button{
+    flex-grow: 1;
+}
