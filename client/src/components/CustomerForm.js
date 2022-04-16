@@ -9,8 +9,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
-
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 function CustomerForm(props) {
     const initialFormValues = {
@@ -52,44 +52,50 @@ function CustomerForm(props) {
         event.preventDefault();
     }
     return (
-        <Box className="customer-form"
-            sx={{ display: 'flex', flexWrap: 'wrap' }}>
-            <form onSubmit={addCustomer} method="POST">
+        <Card className="customer-form">
+            <CardContent>
+                <Box
+                    sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                    <form onSubmit={addCustomer} method="POST" >
+                        <FormControl fullWidth>
+                            <TextField label="Customer name" variant="outlined"
+                                margin="normal"
+                                name="name" onChange={handleInputChange}
+                                value={formValues.name}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start" />,
+                                }} />
+                            <TextField label="VAT identification number" variant="outlined"
+                                margin="normal"
+                                name="vatNumber" value={formValues.vatNumber}
+                                onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start" />,
+                                }} />
+                            <InputLabel shrink id="country-code-label">Country</InputLabel>
+                            <Select
+                                labelId="country-code-label"
+                                value={formValues.countryCode}
+                                name="countryCode"
+                                label="CountryCode"
+                                onChange={handleInputChange}
+                            >
+                                {htmlCountries}
+                            </Select>
 
-                <TextField label="Customer name" variant="outlined"
-                    name="name" onChange={handleInputChange}
-                    value={formValues.name}
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                    }} />
-                <TextField label="VAT identification number" variant="outlined"
-                    name="vatNumber" value={formValues.vatNumber}
-                    onChange={handleInputChange}
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                    }} />
-                <FormControl fullWidth>
-                    <InputLabel shrink id="country-code-label">Country</InputLabel>
-                    <Select
-                        labelId="country-code-label"
-                        value={formValues.countryCode}
-                        name="countryCode"
-                        label="CountryCode"
-                        onChange={handleInputChange}
-                    >
-                        {htmlCountries}
-                    </Select>
-                </FormControl>
-
-                <TextField label="Customer address" variant="outlined"
-                    name="address" value={formValues.address}
-                    onChange={handleInputChange}
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start" />,
-                    }} />
-                <Button variant="contained" type="submit" onClick={() => { props.action() }}>Add</Button>
-            </form>
-        </Box >
+                            <TextField label="Customer address" variant="outlined"
+                                margin="normal"
+                                name="address" value={formValues.address}
+                                onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start" />,
+                                }} />
+                            <Button variant="contained" type="submit" onClick={() => { props.action() }}>Add</Button>
+                        </FormControl>
+                    </form>
+                </Box >
+            </CardContent>
+        </Card>
     )
 }
 export default CustomerForm

@@ -1,2 +1,9 @@
 .customer-form{
+  display: flex;
+  flex-direction: row;
+}
+.customer-form > *{
+  border: 2px solid red;  
+  background-color: red;
+  padding:1rem;
 }

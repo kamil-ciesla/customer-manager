@@ -6,6 +6,10 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 
 export default function CustomersView(props) {
     const [checked, setChecked] = React.useState([1]);
@@ -26,12 +30,10 @@ export default function CustomersView(props) {
     function stringToColor(string) {
         let hash = 0;
         let i;
-
         /* eslint-disable no-bitwise */
         for (i = 0; i < string.length; i += 1) {
             hash = string.charCodeAt(i) + ((hash << 5) - hash);
         }
-
         let color = '#';
 
         for (i = 0; i < 3; i += 1) {
@@ -39,7 +41,6 @@ export default function CustomersView(props) {
             color += `00${value.toString(16)}`.slice(-2);
         }
         /* eslint-enable no-bitwise */
-
         return color;
     }
 
@@ -54,35 +55,42 @@ export default function CustomersView(props) {
     }
 
     return (
-        <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            {props.customers.map((customer) => {
-                const labelId = `checkbox-list-secondary-label-${customer.id}`;
-                return (
-                    <ListItem
-                        key={customer.id}
-                        secondaryAction={
-                            <Checkbox
-                                edge="end"
-                                onChange={handleToggle(customer.id)}
-                                checked={checked.indexOf(customer.id) !== -1}
-                                inputProps={{ 'aria-labelledby': labelId }}
-                            />
-                        }
-                        disablePadding
-                    >
-                        <ListItemButton>
-                            <ListItemAvatar>
-                                <Avatar {...stringAvatar(customer.name)}
-                                    alt={`Avatar n°${customer.id + 1}`}
-                                    src={`/static/images/avatar/${customer.id + 1}.jpg`}
-                                >
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText id={labelId} primary={customer.name} />
-                        </ListItemButton>
-                    </ListItem>
-                );
-            })}
-        </List>
+        <Card>
+            <CardContent>
+                <List dense sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    {props.customers.map((customer) => {
+                        const labelId = `checkbox-list-secondary-label-${customer.id}`;
+                        return (
+                            <ListItem
+                                key={customer.id}
+                                secondaryAction={
+                                    <Checkbox
+                                        edge="end"
+                                        onChange={handleToggle(customer.id)}
+                                        checked={checked.indexOf(customer.id) !== -1}
+                                        inputProps={{ 'aria-labelledby': labelId }}
+                                    />
+                                }
+                                disablePadding
+                            >
+                                <ListItemButton>
+                                    <ListItemAvatar>
+                                        <Avatar {...stringAvatar(customer.name)}
+                                            alt={`Avatar n°${customer.id + 1}`}
+                                            src={`/static/images/avatar/${customer.id + 1}.jpg`}
+                                        >
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText id={labelId} primary={customer.name} />
+                                    <ClearRoundedIcon>  </ClearRoundedIcon>
+
+                                </ListItemButton>
+                            </ListItem>
+                        );
+                    })}
+                </List>
+            </CardContent>
+        </Card >
+
     );
 }

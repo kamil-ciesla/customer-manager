@@ -1,19 +1,16 @@
+.background{
+    height:80vh;
+}
+.left-side{
+    height:50%;
+    margin:4px;
+    height:100%;
+}
+.right-side{
+    flex-grow: 1;
+    margin:4px;
+}
 .main-content{
     display:flex;
     flex-direction: row;
-    margin-top: 1rem;
-    margin-left:1rem;
-    width:70%;
-    height:70vh;
-    background-color: rgb(246, 245, 236);
-
-}
-.left-side{
-    width: 40%;
-    height:50%;
-    padding: 2rem;
-    border-radius: 15px;
-}
-.right-side{
-    width: 60%;
 }

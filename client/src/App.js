@@ -6,9 +6,10 @@ import Header from './components/Header'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useCallback } from 'react'
-
 import axios from 'axios';
 import * as constants from './constants'
+import Paper from '@mui/material/Paper';
+import SearchAppBar from './components/SearchAppBar';
 
 function App() {
   const [customers, setCustomers] = useState([]);
@@ -32,15 +33,17 @@ function App() {
 
   return (
     <div className="App">
-      <Header title={`Customer Manager ${usersSend}`} />
-      <div className="main-content">
-        <div className="left-side">
-          <CustomerForm action={() => { incrementUS(); }} />
+      <Paper className="background" elevation={3}>
+        <SearchAppBar title="Customer Manager"></SearchAppBar>
+        <div className="main-content">
+          <div className="left-side">
+            <CustomerForm action={() => { incrementUS(); }} />
+          </div>
+          <div className="right-side">
+            {customers.length && <CustomersView customers={customers} />}
+          </div>
         </div>
-        <div className="right-side  ">
-          {customers.length && <CustomersView customers={customers} />}
-        </div>
-      </div>
+      </Paper>
     </div >
   );
 }
