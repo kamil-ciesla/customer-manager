@@ -19,4 +19,9 @@ async function addCustomer(customerData) {
     const result = await axios.post(constants.SERVER_BASE_LINK + '/add-customer', customerData);
     return result.data;
 }
-export { getCustomers, deleteCustomer, getCustomerData, addCustomer }
+async function editCustomer(customer) {
+    const result = await axios.post(constants.SERVER_BASE_LINK + '/edit-customer', customer);
+    console.log(result.data);
+    return result.data;
+}
+export { getCustomers, deleteCustomer, getCustomerData, addCustomer, editCustomer }

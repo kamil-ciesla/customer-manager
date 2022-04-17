@@ -19,7 +19,12 @@ function App() {
     })
   }, [customersReloading])
 
-  function onCustomerDelete() {
+  function onCustomerDelete(customerId) {
+
+    if (currentCustomer?.id === customerId) {
+      setCurrentCustomer(null);
+    }
+    deleteCustomer(customerId);
     setCustomersReloading(true);
   }
   function onCustomerEdit(customer) {
@@ -27,6 +32,7 @@ function App() {
   }
   function onFormSubmit() {
     setCustomersReloading(true);
+    setCurrentCustomer(null);
   }
   return (
     <div className="App">

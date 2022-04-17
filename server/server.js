@@ -39,18 +39,19 @@ for (const customerData of testCustomersData) {
     customers.push(new Customer(customerData));
 }
 
+function getCustomerIndex(id) {
+    return customers.findIndex(customer => customer.id === id);
+}
 app.param("id", function (req, res, next, id) {
     req.id = parseInt(id);
     next();
 });
 
 app.get("/customer/:id", (req, res) => {
-    const customerIndex = customers.findIndex(customer => customer.id === req.id);
-    res.send(customers[customerIndex]);
+    res.send(customers[getCustomerIndex(req.id)]);
 });
 app.get("/delete-customer/:id", (req, res) => {
-    const customerIndex = customers.findIndex(customer => customer.id === req.id);
-    customers.splice(customerIndex, 1);
+    customers.splice(getCustomerIndex(req.id), 1);
     res.send('Deleted customer');
 });
 app.get("/customers", (req, res) => {
@@ -68,7 +69,14 @@ app.post("/add-customer", (req, res) => {
 });
 
 app.post("/edit-customer", (req, res) => {
-    res.send("Hello World!");
+    console.log('Editing customer');
+    const newCustomerData = req.body;
+    const customer = customers[getCustomerIndex(newCustomerData.id)]
+    Object.keys(newCustomerData)
+        .forEach(key => {
+            customer[key] = newCustomerData[key];
+        });
+    res.send(customer);
 });
 
 app.get("/", (req, res) => {
@@ -76,5 +84,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Server listening on port ${port}`);
 });

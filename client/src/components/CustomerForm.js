@@ -11,9 +11,11 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { addCustomer } from '../api/customer'
+import SaveIcon from '@mui/icons-material/Save';
+import { addCustomer, editCustomer } from '../api/customer'
 
 function CustomerForm(props) {
+
     const initialFormValues = {
         name: '',
         vatNumber: '',
@@ -22,9 +24,12 @@ function CustomerForm(props) {
     }
     const [formValues, setFormValues] = useState(initialFormValues);
 
+    // If there's a customer provided, switch to edit mode.
     useEffect(() => {
         if (props.customer) {
             setFormValues(props.customer);
+        } else {
+            setFormValues(initialFormValues);
         }
     }, [props.customer])
 
@@ -48,7 +53,7 @@ function CustomerForm(props) {
                 <Box
                     sx={{ display: 'flex', flexWrap: 'wrap' }}>
                     <form method="POST" onSubmit={event => {
-                        addCustomer(formValues);
+                        props.customer ? editCustomer(formValues) : addCustomer(formValues);
                         event.preventDefault();
                         props.onSubmit();
                     }} >
@@ -85,9 +90,22 @@ function CustomerForm(props) {
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
-                            <Button variant="contained" type="submit">
-                                {props.customer ? 'Apply changes' : 'Add'}
-                            </Button>
+
+                            {props.customer ?
+                                <Button
+                                    color="secondary"
+                                    startIcon={<SaveIcon />}
+                                    variant="contained"
+                                    type="submit"
+                                >
+                                    Save
+                                </Button>
+                                :
+                                <Button variant="contained" type="submit">
+                                    Add
+                                </Button>
+                            }
+
                         </FormControl>
                     </form>
                 </Box >

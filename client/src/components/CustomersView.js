@@ -8,9 +8,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
-import { deleteCustomer } from '../api/customer'
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 export default function CustomersView(props) {
     const [checked, setChecked] = React.useState([1]);
@@ -63,22 +62,15 @@ export default function CustomersView(props) {
                         const labelId = `checkbox-list-secondary-label-${customer.id}`;
                         return (
                             <ListItem
-                                onClick={() => {
-                                    props.onCustomerEdit(customer)
-                                }}
+
                                 key={customer.id}
-                                secondaryAction={
-                                    <Checkbox
-                                        edge="end"
-                                        onChange={handleToggle(customer.id)}
-                                        checked={checked.indexOf(customer.id) !== -1}
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                    />
-                                }
+
                                 disablePadding
                             >
-                                <ListItemButton>
-                                    <ListItemAvatar>
+                                <ListItemButton onClick={() => {
+                                    props.onCustomerEdit(customer)
+                                }} >
+                                    <ListItemAvatar >
                                         <Avatar {...stringAvatar(customer.name)}
                                             alt={`Avatar n°${customer.id + 1}`}
                                             src={`/static/images/avatar/${customer.id + 1}.jpg`}
@@ -86,12 +78,21 @@ export default function CustomersView(props) {
                                         </Avatar>
                                     </ListItemAvatar>
                                     <ListItemText id={labelId} primary={customer.name} />
-                                    <ClearRoundedIcon onClick={() => {
-                                        deleteCustomer(customer.id);
-                                        props.onCustomerDelete();
-                                    }
-                                    }>  </ClearRoundedIcon>
+
                                 </ListItemButton>
+
+                                <IconButton aria-label="delete" onClick={
+                                    () => {
+                                        props.onCustomerDelete(customer.id);
+                                    }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                                <Checkbox
+                                    edge="end"
+                                    onChange={handleToggle(customer.id)}
+                                    checked={checked.indexOf(customer.id) !== -1}
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                />
                             </ListItem>
                         );
                     })}
