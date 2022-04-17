@@ -32,8 +32,8 @@ const customers = [];
 const testCustomersData = [
     { name: "Joe", vatNumber: "123456789", countryCode: 'pl', address: "Cracow 12" },
     { name: "Kayle", vatNumber: "987654321", countryCode: 'gb', address: "London 12" },
-    { name: "Sheila", vatNumber: "546738292", countryCode: 'fr', address: "Paris 12" },
-    { name: "Dave", vatNumber: "847882100", countryCode: 'pl', address: "Warsaw 12" },
+    { name: "Sheila", vatNumber: "546738292", countryCode: 'fr', address: "Paris 12", city: 'Sydney' },
+    { name: "Dave", vatNumber: "847882100", countryCode: 'pl', address: "Warsaw 12", city: 'Krakow' },
 ]
 for (const customerData of testCustomersData) {
     customers.push(new Customer(customerData));

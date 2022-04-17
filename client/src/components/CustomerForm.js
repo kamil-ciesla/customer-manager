@@ -1,4 +1,3 @@
-import * as constants from '../constants'
 import { useState, useMemo, useEffect } from 'react'
 import countryList from 'react-select-country-list'
 import Button from '@mui/material/Button';
@@ -12,15 +11,19 @@ import FormControl from '@mui/material/FormControl';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import SaveIcon from '@mui/icons-material/Save';
-import { addCustomer, editCustomer } from '../api/customer'
+import Typography from '@mui/material/Typography';
+import { addCustomer, editCustomer } from '../customer'
 
 function CustomerForm(props) {
 
     const initialFormValues = {
         name: '',
+        email: '',
         vatNumber: '',
         countryCode: '',
-        address: ''
+        address: '',
+        city: '',
+        zipOrPostalCode: ''
     }
     const [formValues, setFormValues] = useState(initialFormValues);
 
@@ -57,35 +60,82 @@ function CustomerForm(props) {
                         event.preventDefault();
                         props.onSubmit();
                     }} >
+                        <Typography variant="h6" gutterBottom component="div">
+                            {props.customer ? 'Edit customer' : 'Add customer'}
+                        </Typography>
                         <FormControl fullWidth>
-                            <TextField label="Customer name" variant="outlined"
+                            <TextField label="Customer name"
+                                variant='standard'
+                                required
                                 margin="normal"
                                 name="name" onChange={handleInputChange}
                                 value={formValues.name}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
-                            <TextField label="VAT identification number" variant="outlined"
+                            <TextField label="Email"
+                                variant='standard'
+                                required
                                 margin="normal"
+                                name="email" onChange={handleInputChange}
+                                value={formValues.email}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start" />,
+                                }} />
+                            <TextField label="VAT identification number"
+                                margin="normal"
+                                required
+                                variant='standard'
                                 name="vatNumber" value={formValues.vatNumber}
                                 onChange={handleInputChange}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
-                            <InputLabel shrink id="country-code-label">Country</InputLabel>
-                            <Select
-                                labelId="country-code-label"
-                                value={formValues.countryCode}
-                                name="countryCode"
-                                label="CountryCode"
-                                onChange={handleInputChange}
-                            >
-                                {htmlCountries}
-                            </Select>
-
-                            <TextField label="Customer address" variant="outlined"
+                            <FormControl fullWidth>
+                                <InputLabel
+                                    shrink variant='standard'
+                                    required
+                                    htmlFor="country-code-label"
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start" />,
+                                    }}>
+                                    Country
+                                </InputLabel>
+                                <Select
+                                    required
+                                    value={formValues.countryCode}
+                                    name="countryCode"
+                                    variant='standard'
+                                    labelId='country-code-label'
+                                    defaultValue='Poland'
+                                    onChange={handleInputChange}
+                                    InputProps={{
+                                        id: 'country-code-label'
+                                    }}
+                                >
+                                    {htmlCountries}
+                                </Select>
+                            </FormControl>
+                            <TextField label="Address" variant="standard"
                                 margin="normal"
+                                required
                                 name="address" value={formValues.address}
+                                onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start" />,
+                                }} />
+                            <TextField label="City" variant="standard"
+                                margin="normal"
+
+                                name="city" value={formValues.city}
+                                onChange={handleInputChange}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start" />,
+                                }} />
+                            <TextField label="ZIP/Postal Code" variant="standard"
+                                margin="normal"
+
+                                name="zipOrPostalCode" value={formValues.zipOrPostalCode}
                                 onChange={handleInputChange}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
@@ -110,7 +160,7 @@ function CustomerForm(props) {
                     </form>
                 </Box >
             </CardContent>
-        </Card>
+        </Card >
     )
 }
 export default CustomerForm

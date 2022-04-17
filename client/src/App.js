@@ -3,7 +3,7 @@ import CustomerForm from './components/CustomerForm'
 import CustomersView from './components/CustomersView'
 import Paper from '@mui/material/Paper'
 import SearchAppBar from './components/SearchAppBar'
-import { getCustomers, deleteCustomer } from './api/customer'
+import { getCustomers, deleteCustomer } from './customer'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
