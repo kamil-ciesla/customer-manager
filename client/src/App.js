@@ -1,46 +1,44 @@
 import './App.css';
 import CustomerForm from './components/CustomerForm'
 import CustomersView from './components/CustomersView'
-import Navigation from './components/Navigation'
-import Header from './components/Header'
+import Paper from '@mui/material/Paper'
+import SearchAppBar from './components/SearchAppBar'
+import { getCustomers, deleteCustomer } from './api/customer'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { useCallback } from 'react'
-import axios from 'axios';
-import * as constants from './constants'
-import Paper from '@mui/material/Paper';
-import SearchAppBar from './components/SearchAppBar';
 
 function App() {
   const [customers, setCustomers] = useState([]);
-  const [usersSend, setUsersSend] = useState(1);
-  const updateCustomers = useCallback(async () => {
-    console.log('updating');
-    const result = await axios(constants.SERVER_BASE_LINK + '/customers');
-    setCustomers(result.data);
-  }, [])
+  const [customersReloading, setCustomersReloading] = useState(false);
+  const [currentCustomer, setCurrentCustomer] = useState(null);
 
-  // the useEffect is only there to call `fetchData` at the right time
   useEffect(() => {
-    console.log(usersSend);
-    updateCustomers()
-      // make sure to catch any error
-      .catch(console.error);;
-  }, [usersSend])
-  function incrementUS() {
-    setUsersSend(usersSend + 1);
-  }
+    getCustomers().then(customers => {
+      setCustomers(customers);
+      setCustomersReloading(false);
+    })
+  }, [customersReloading])
 
+  function onCustomerDelete() {
+    setCustomersReloading(true);
+  }
+  function onCustomerEdit(customer) {
+    setCurrentCustomer(customer);
+  }
+  function onFormSubmit() {
+    setCustomersReloading(true);
+  }
   return (
     <div className="App">
       <Paper className="background" elevation={3}>
         <SearchAppBar title="Customer Manager"></SearchAppBar>
         <div className="main-content">
           <div className="left-side">
-            <CustomerForm action={() => { incrementUS(); }} />
+            <CustomerForm customer={currentCustomer} onSubmit={onFormSubmit} />
           </div>
           <div className="right-side">
-            {customers.length && <CustomersView customers={customers} />}
+            <CustomersView customers={customers} onCustomerDelete={onCustomerDelete}
+              onCustomerEdit={onCustomerEdit} />
           </div>
         </div>
       </Paper>

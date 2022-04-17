@@ -1,5 +1,5 @@
 import * as constants from '../constants'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import countryList from 'react-select-country-list'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { addCustomer } from '../api/customer'
 
 function CustomerForm(props) {
     const initialFormValues = {
@@ -21,10 +22,17 @@ function CustomerForm(props) {
     }
     const [formValues, setFormValues] = useState(initialFormValues);
 
+    useEffect(() => {
+        if (props.customer) {
+            setFormValues(props.customer);
+        }
+    }, [props.customer])
+
     const countries = useMemo(() => countryList().getData(), [])
     const htmlCountries = countries.map(country => {
         return <MenuItem key={country.value} value={country.value}>{country.label}</MenuItem>
     })
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormValues({
@@ -33,30 +41,17 @@ function CustomerForm(props) {
         });
     }
 
-    function addCustomer(event) {
-        fetch(constants.SERVER_BASE_LINK + '/add-customer', {
-            method: 'POST',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(formValues)
-        }).then(function (response) {
-            return response.json();
-        });
-        event.preventDefault();
-    }
+
     return (
         <Card className="customer-form">
             <CardContent>
                 <Box
                     sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                    <form onSubmit={addCustomer} method="POST" >
+                    <form method="POST" onSubmit={event => {
+                        addCustomer(formValues);
+                        event.preventDefault();
+                        props.onSubmit();
+                    }} >
                         <FormControl fullWidth>
                             <TextField label="Customer name" variant="outlined"
                                 margin="normal"
@@ -90,7 +85,9 @@ function CustomerForm(props) {
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
-                            <Button variant="contained" type="submit" onClick={() => { props.action() }}>Add</Button>
+                            <Button variant="contained" type="submit">
+                                {props.customer ? 'Apply changes' : 'Add'}
+                            </Button>
                         </FormControl>
                     </form>
                 </Box >

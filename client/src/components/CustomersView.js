@@ -10,6 +10,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
+import { deleteCustomer } from '../api/customer'
 
 export default function CustomersView(props) {
     const [checked, setChecked] = React.useState([1]);
@@ -23,7 +24,6 @@ export default function CustomersView(props) {
         } else {
             newChecked.splice(currentIndex, 1);
         }
-
         setChecked(newChecked);
     };
 
@@ -54,6 +54,7 @@ export default function CustomersView(props) {
         };
     }
 
+
     return (
         <Card>
             <CardContent>
@@ -62,6 +63,9 @@ export default function CustomersView(props) {
                         const labelId = `checkbox-list-secondary-label-${customer.id}`;
                         return (
                             <ListItem
+                                onClick={() => {
+                                    props.onCustomerEdit(customer)
+                                }}
                                 key={customer.id}
                                 secondaryAction={
                                     <Checkbox
@@ -82,8 +86,11 @@ export default function CustomersView(props) {
                                         </Avatar>
                                     </ListItemAvatar>
                                     <ListItemText id={labelId} primary={customer.name} />
-                                    <ClearRoundedIcon>  </ClearRoundedIcon>
-
+                                    <ClearRoundedIcon onClick={() => {
+                                        deleteCustomer(customer.id);
+                                        props.onCustomerDelete();
+                                    }
+                                    }>  </ClearRoundedIcon>
                                 </ListItemButton>
                             </ListItem>
                         );

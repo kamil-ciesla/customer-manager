@@ -4,6 +4,8 @@ const Customer = require("./api/customer");
 const app = express();
 const cors = require("cors");
 const port = 5000;
+const jsvat = require("jsvat");
+
 
 const whitelist = ["http://localhost:3000"];
 
@@ -20,21 +22,18 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-const validate = require("validate-vat");
 const jsonParser = bodyParser.json()
 //const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-validate("pl", "1234567890", function (err, validationInfo) {
-    console.log(validationInfo);
-});
+//console.log(jsvat.checkVAT('', jsvat.countries));
 
 const customers = [];
 
-console.log("Testing customer");
 const testCustomersData = [
-    { name: "Joe", nip: "123456789", countryCode: 'pl', address: "Cracow 12" },
-    { name: "Kayle", nip: "987654321", countryCode: 'gb', address: "London 12" },
-    { name: "Sheila", nip: "546738292", countryCode: 'fr', address: "Paris 12" },
+    { name: "Joe", vatNumber: "123456789", countryCode: 'pl', address: "Cracow 12" },
+    { name: "Kayle", vatNumber: "987654321", countryCode: 'gb', address: "London 12" },
+    { name: "Sheila", vatNumber: "546738292", countryCode: 'fr', address: "Paris 12" },
+    { name: "Dave", vatNumber: "847882100", countryCode: 'pl', address: "Warsaw 12" },
 ]
 for (const customerData of testCustomersData) {
     customers.push(new Customer(customerData));
@@ -46,11 +45,16 @@ app.param("id", function (req, res, next, id) {
 });
 
 app.get("/customer/:id", (req, res) => {
-    res.send(customers[req.id]);
+    const customerIndex = customers.findIndex(customer => customer.id === req.id);
+    res.send(customers[customerIndex]);
+});
+app.get("/delete-customer/:id", (req, res) => {
+    const customerIndex = customers.findIndex(customer => customer.id === req.id);
+    customers.splice(customerIndex, 1);
+    res.send('Deleted customer');
 });
 app.get("/customers", (req, res) => {
-    console.log('sending customers');
-    console.log(customers.length);
+    console.log('Number of customers:' + customers.length);
     res.send(customers);
 });
 
