@@ -5,7 +5,6 @@ module.exports = class Customer {
         this.id = Customer.idCounter;
         Customer.idCounter++;
         this.name = args.name;
-        this.email = args.email || '';
         this.vatNumber = args.vatNumber || '';
         this.countryCode = args.countryCode || '';
         this.address = args.address || '';

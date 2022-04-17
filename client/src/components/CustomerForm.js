@@ -12,13 +12,16 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import SaveIcon from '@mui/icons-material/Save';
 import Typography from '@mui/material/Typography';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+
 import { addCustomer, editCustomer } from '../customer'
 
 function CustomerForm(props) {
 
     const initialFormValues = {
         name: '',
-        email: '',
         vatNumber: '',
         countryCode: '',
         address: '',
@@ -70,15 +73,6 @@ function CustomerForm(props) {
                                 margin="normal"
                                 name="name" onChange={handleInputChange}
                                 value={formValues.name}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start" />,
-                                }} />
-                            <TextField label="Email"
-                                variant='standard'
-                                required
-                                margin="normal"
-                                name="email" onChange={handleInputChange}
-                                value={formValues.email}
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
@@ -140,21 +134,45 @@ function CustomerForm(props) {
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
+                            {props.customer &&
+                                <TextField label="Creation Date"
+                                    variant='standard'
+                                    disabled
+                                    margin="normal"
+                                    name="creationDate"
+                                    value={(new Date(props.customer.creationDate)).toDateString()}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start" />,
+                                    }} />
+                            }
 
                             {props.customer ?
-                                <Button
-                                    color="secondary"
-                                    startIcon={<SaveIcon />}
-                                    variant="contained"
-                                    type="submit"
-                                >
-                                    Save
-                                </Button>
+                                <ButtonGroup disableElevation >
+                                    <Button
+                                        color="primary"
+                                        startIcon={<ArrowBackIcon />}
+                                        variant="outlined"
+                                        onClick={props.onClickBackButton}
+                                    >
+                                        Back
+                                    </Button>
+                                    <Button
+                                        color="secondary"
+                                        startIcon={<SaveIcon />}
+                                        variant="contained"
+                                        type="submit"
+                                    >
+                                        Save
+                                    </Button>
+                                </ButtonGroup>
+
                                 :
-                                <Button variant="contained" type="submit">
+                                <Button variant="contained" type="submit"
+                                    endIcon={<AddCircleOutlineIcon />}>
                                     Add
                                 </Button>
                             }
+
 
                         </FormControl>
                     </form>

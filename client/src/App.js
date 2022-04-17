@@ -34,13 +34,16 @@ function App() {
     setCustomersReloading(true);
     setCurrentCustomer(null);
   }
+  function onClickBackButton() {
+    setCurrentCustomer(null);
+  }
   return (
     <div className="App">
       <Paper className="background" elevation={3}>
         <SearchAppBar title="Customer Manager"></SearchAppBar>
         <div className="main-content">
           <div className="left-side">
-            <CustomerForm customer={currentCustomer} onSubmit={onFormSubmit} />
+            <CustomerForm customer={currentCustomer} onSubmit={onFormSubmit} onClickBackButton={onClickBackButton} />
           </div>
           <div className="right-side">
             <CustomersView customers={customers} onCustomerDelete={onCustomerDelete}
