@@ -11,6 +11,7 @@ function App() {
   const [customers, setCustomers] = useState([]);
   const [customersReloading, setCustomersReloading] = useState(false);
   const [currentCustomer, setCurrentCustomer] = useState(null);
+  const [language, setLanguage] = useState('english')
 
   useEffect(() => {
     getCustomers().then(customers => {
@@ -37,17 +38,32 @@ function App() {
   function onClickBackButton() {
     setCurrentCustomer(null);
   }
+  function onLanguageChange(language) {
+    setLanguage(language);
+  }
   return (
     <div className="App">
       <Paper className="background" elevation={3}>
-        <SearchAppBar title="Customer Manager"></SearchAppBar>
+        <SearchAppBar
+          title="Customer Manager"
+          language={language}
+          onLanguageChange={onLanguageChange} />
         <div className="main-content">
           <div className="left-side">
-            <CustomerForm customer={currentCustomer} onSubmit={onFormSubmit} onClickBackButton={onClickBackButton} />
+            <CustomerForm
+              customer={currentCustomer}
+              onSubmit={onFormSubmit}
+              onClickBackButton={onClickBackButton}
+              language={language}
+            />
           </div>
           <div className="right-side">
-            <CustomersView customers={customers} onCustomerDelete={onCustomerDelete}
-              onCustomerEdit={onCustomerEdit} />
+            <CustomersView
+              customers={customers}
+              onCustomerDelete={onCustomerDelete}
+              onCustomerEdit={onCustomerEdit}
+              language={language}
+            />
           </div>
         </div>
       </Paper>

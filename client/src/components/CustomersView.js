@@ -11,6 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 
+
 export default function CustomersView(props) {
     const [checked, setChecked] = React.useState([1]);
 
@@ -62,9 +63,7 @@ export default function CustomersView(props) {
                         const labelId = `checkbox-list-secondary-label-${customer.id}`;
                         return (
                             <ListItem
-
                                 key={customer.id}
-
                                 disablePadding
                             >
                                 <ListItemButton onClick={() => {
@@ -77,8 +76,17 @@ export default function CustomersView(props) {
                                         >
                                         </Avatar>
                                     </ListItemAvatar>
-                                    <ListItemText id={labelId} primary={customer.name} />
-
+                                    <ListItemText
+                                        sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 250, maxWidth: 250 }} id={labelId} primary={customer.name} />
+                                    <ListItemText sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 150, maxWidth: 150 }}>
+                                        VAT: {customer.vatNumber}
+                                    </ListItemText>
+                                    <ListItemText sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 50, maxWidth: 50 }}>
+                                        {customer.countryCode}
+                                    </ListItemText>
+                                    <ListItemText sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 150, maxWidth: 150 }}>
+                                        {customer.address}
+                                    </ListItemText>
                                 </ListItemButton>
 
                                 <IconButton aria-label="delete" onClick={

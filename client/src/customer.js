@@ -8,7 +8,7 @@ async function getCustomers() {
 
 async function deleteCustomer(id) {
     const result = await axios.get(constants.SERVER_BASE_LINK + '/delete-customer/' + id);
-    //console.log(result.data);
+    return result.data;
 }
 async function getCustomerData(id) {
     const result = await axios(constants.SERVER_BASE_LINK + '/customer/id');

@@ -15,8 +15,9 @@ import Typography from '@mui/material/Typography';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
 import { addCustomer, editCustomer } from '../customer'
+import { languages } from '../languages';
+
 
 function CustomerForm(props) {
 
@@ -52,22 +53,22 @@ function CustomerForm(props) {
         });
     }
 
-
     return (
         <Card className="customer-form">
-            <CardContent>
+            <CardContent >
                 <Box
                     sx={{ display: 'flex', flexWrap: 'wrap' }}>
                     <form method="POST" onSubmit={event => {
                         props.customer ? editCustomer(formValues) : addCustomer(formValues);
+                        setFormValues(initialFormValues);
                         event.preventDefault();
                         props.onSubmit();
                     }} >
                         <Typography variant="h6" gutterBottom component="div">
-                            {props.customer ? 'Edit customer' : 'Add customer'}
+                            {props.customer ? languages.editCustomer[props.language] : languages.addCustomer[props.language]}
                         </Typography>
                         <FormControl fullWidth>
-                            <TextField label="Customer name"
+                            <TextField label={languages.customerName[props.language]}
                                 variant='standard'
                                 required
                                 margin="normal"
@@ -76,7 +77,7 @@ function CustomerForm(props) {
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
-                            <TextField label="VAT identification number"
+                            <TextField label={languages.vatNumber[props.language]}
                                 margin="normal"
                                 required
                                 variant='standard'
@@ -93,7 +94,7 @@ function CustomerForm(props) {
                                     InputProps={{
                                         startAdornment: <InputAdornment position="start" />,
                                     }}>
-                                    Country
+                                    {languages.country[props.language]}
                                 </InputLabel>
                                 <Select
                                     required
@@ -110,7 +111,7 @@ function CustomerForm(props) {
                                     {htmlCountries}
                                 </Select>
                             </FormControl>
-                            <TextField label="Address" variant="standard"
+                            <TextField label={languages.address[props.language]} variant="standard"
                                 margin="normal"
                                 required
                                 name="address" value={formValues.address}
@@ -118,7 +119,7 @@ function CustomerForm(props) {
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
-                            <TextField label="City" variant="standard"
+                            <TextField label={languages.city[props.language]} variant="standard"
                                 margin="normal"
 
                                 name="city" value={formValues.city}
@@ -126,7 +127,7 @@ function CustomerForm(props) {
                                 InputProps={{
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
-                            <TextField label="ZIP/Postal Code" variant="standard"
+                            <TextField label={languages.zipOrPostalCode[props.language]} variant="standard"
                                 margin="normal"
 
                                 name="zipOrPostalCode" value={formValues.zipOrPostalCode}
@@ -135,7 +136,7 @@ function CustomerForm(props) {
                                     startAdornment: <InputAdornment position="start" />,
                                 }} />
                             {props.customer &&
-                                <TextField label="Creation Date"
+                                <TextField label={languages.creationDate[props.language]}
                                     variant='standard'
                                     disabled
                                     margin="normal"
@@ -154,26 +155,23 @@ function CustomerForm(props) {
                                         variant="outlined"
                                         onClick={props.onClickBackButton}
                                     >
-                                        Back
+                                        {languages.back[props.language]}
                                     </Button>
                                     <Button
                                         color="secondary"
-                                        startIcon={<SaveIcon />}
+                                        endIcon={<SaveIcon />}
                                         variant="contained"
                                         type="submit"
                                     >
-                                        Save
+                                        {languages.save[props.language]}
                                     </Button>
                                 </ButtonGroup>
-
                                 :
                                 <Button variant="contained" type="submit"
                                     endIcon={<AddCircleOutlineIcon />}>
-                                    Add
+                                    {languages.add[props.language]}
                                 </Button>
                             }
-
-
                         </FormControl>
                     </form>
                 </Box >
