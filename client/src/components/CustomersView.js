@@ -58,7 +58,6 @@ export default function CustomersView(props) {
         };
     }
 
-
     return (
         <Card>
             <CardContent>
@@ -97,14 +96,6 @@ export default function CustomersView(props) {
                                     }}>
                                     <DeleteIcon />
                                 </IconButton>
-                                <Checkbox
-                                    edge="end"
-                                    sx={{ color: '#00695c', checkedColor: '#00695c' }}
-                                    onChange={handleToggle(customer.id)}
-                                    checked={checked.indexOf(customer.id) !== -1}
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-
                             </ListItem>
                         );
                     })}
