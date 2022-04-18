@@ -30,10 +30,10 @@ const jsonParser = bodyParser.json()
 const customers = [];
 
 const testCustomersData = [
-    { name: "Joe", vatNumber: "123456789", countryCode: 'pl', address: "Cracow 12" },
-    { name: "Kayle", vatNumber: "987654321", countryCode: 'gb', address: "London 12" },
-    { name: "Sheila", vatNumber: "546738292", countryCode: 'fr', address: "Paris 12", city: 'Sydney' },
-    { name: "Dave", vatNumber: "847882100", countryCode: 'pl', address: "Warsaw 12", city: 'Krakow' },
+    { name: "Oliver Cole", vatNumber: "gb1234567890", countryCode: 'GB', address: "Petticoat Lane 707", city: 'London' },
+    { name: "Jan Kowalski", vatNumber: "pl4545454601", countryCode: 'PL', address: "Mokotów 15", city: 'Warsaw' },
+    { name: "Sheila Dorman", vatNumber: "cn546738292", countryCode: 'CN', address: "Xin Zhen Lu 973", city: 'Shanghai' },
+    { name: "Dave Jenkins", vatNumber: "pl847882100", countryCode: 'FR', address: "Wielopole 1", city: 'Kraków' },
 ]
 for (const customerData of testCustomersData) {
     customers.push(new Customer(customerData));

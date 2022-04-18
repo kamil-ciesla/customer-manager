@@ -17,6 +17,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { addCustomer, editCustomer } from '../customer'
 import { languages } from '../languages';
+const jsvat = require("jsvat");
 
 
 function CustomerForm(props) {
@@ -41,6 +42,7 @@ function CustomerForm(props) {
     }, [props.customer])
 
     const countries = useMemo(() => countryList().getData(), [])
+    console.log(countries);
     const htmlCountries = countries.map(country => {
         return <MenuItem key={country.value} value={country.value}>{country.label}</MenuItem>
     })
@@ -52,13 +54,17 @@ function CustomerForm(props) {
             [name]: value
         });
     }
-
+    async function validateVat() {
+        const result = jsvat(formValues.vatNumber);
+        console.log(result);
+    }
     return (
         <Card className="customer-form">
             <CardContent >
                 <Box
                     sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                    <form method="POST" onSubmit={event => {
+                    <form method="POST" onSubmit={async event => {
+                        //await validateVat();
                         props.customer ? editCustomer(formValues) : addCustomer(formValues);
                         setFormValues(initialFormValues);
                         event.preventDefault();
@@ -91,9 +97,7 @@ function CustomerForm(props) {
                                     shrink variant='standard'
                                     required
                                     htmlFor="country-code-label"
-                                    InputProps={{
-                                        startAdornment: <InputAdornment position="start" />,
-                                    }}>
+                                >
                                     {languages.country[props.language]}
                                 </InputLabel>
                                 <Select
@@ -104,9 +108,7 @@ function CustomerForm(props) {
                                     labelId='country-code-label'
                                     defaultValue='Poland'
                                     onChange={handleInputChange}
-                                    InputProps={{
-                                        id: 'country-code-label'
-                                    }}
+
                                 >
                                     {htmlCountries}
                                 </Select>

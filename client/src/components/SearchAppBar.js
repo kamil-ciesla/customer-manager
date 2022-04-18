@@ -1,14 +1,13 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import AppBar from '@material-ui/core/AppBar';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import GroupIcon from '@mui/icons-material/Group';
 import { languages } from '../languages';
 
 export default function SearchAppBar(props) {
@@ -23,7 +22,7 @@ export default function SearchAppBar(props) {
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
                     >
-                        <MenuIcon />
+                        <GroupIcon size="large" />
                     </IconButton>
                     <Typography
                         variant="h6"

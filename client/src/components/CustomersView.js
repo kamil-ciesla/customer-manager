@@ -10,7 +10,11 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-
+/*
+const checkBoxTheme = getMuiTheme({
+    checkbox: { checkedColor: 'red' }
+});
+*/
 
 export default function CustomersView(props) {
     const [checked, setChecked] = React.useState([1]);
@@ -81,11 +85,9 @@ export default function CustomersView(props) {
                                     <ListItemText sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 150, maxWidth: 150 }}>
                                         VAT: {customer.vatNumber}
                                     </ListItemText>
-                                    <ListItemText sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 50, maxWidth: 50 }}>
-                                        {customer.countryCode}
-                                    </ListItemText>
-                                    <ListItemText sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 150, maxWidth: 150 }}>
-                                        {customer.address}
+
+                                    <ListItemText sx={{ overflow: 'hidden', textOverflow: "ellipsis", minWidth: 400, maxWidth: 400 }}>
+                                        {customer.city + ' ' + customer.address}
                                     </ListItemText>
                                 </ListItemButton>
 
@@ -97,10 +99,12 @@ export default function CustomersView(props) {
                                 </IconButton>
                                 <Checkbox
                                     edge="end"
+                                    sx={{ color: '#00695c', checkedColor: '#00695c' }}
                                     onChange={handleToggle(customer.id)}
                                     checked={checked.indexOf(customer.id) !== -1}
                                     inputProps={{ 'aria-labelledby': labelId }}
                                 />
+
                             </ListItem>
                         );
                     })}

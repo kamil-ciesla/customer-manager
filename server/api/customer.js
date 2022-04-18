@@ -5,7 +5,7 @@ module.exports = class Customer {
         this.id = Customer.idCounter;
         Customer.idCounter++;
         this.name = args.name;
-        this.vatNumber = args.vatNumber || '';
+        this.vatNumber = args.vatNumber.toUpperCase() || '';
         this.countryCode = args.countryCode || '';
         this.address = args.address || '';
         this.city = args.city || '';
