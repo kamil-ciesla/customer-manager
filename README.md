@@ -5,7 +5,7 @@ It is available in three languagues: Polish, English and Sweden.
 
 - Client side is created with React and stylized using material UI.
 - Backend is created with Node.js and express.js.
-- App is deployed on Vercel, here's the link: https://customer-manager-client.vercel.app/
+- App is deployed on Vercel, here's the link: https://customer-manager-by-kamil-ciesla.vercel.app/
 
 Instruction how to set up and run the application:
 
