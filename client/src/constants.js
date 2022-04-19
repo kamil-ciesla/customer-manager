@@ -1,1 +1,1 @@
-export const SERVER_BASE_LINK = 'https://express-vercel-9n2z5lq2c-kamil-ciesla.vercel.app'
+export const SERVER_BASE_LINK = 'https://customer-manager-server.vercel.app'
