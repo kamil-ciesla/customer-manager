@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const SERVER_BASE_LINK = NEXT_PUBLIC_BACKEND_SERVER_LINK || 'http://localhost:5000'
+const SERVER_BASE_LINK = 'http://localhost:5000'
 
 
 async function getCustomers() {
