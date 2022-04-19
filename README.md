@@ -14,7 +14,7 @@ Requirements:
 
 1. Download the repository (clone, or download a ZIP file)
 2. Open terminal (it has to have Node.js installed)
-3. Go into app directory.
+3. Go into the app directory.
 4. Go into /server subdirectory
 7. Enter the following line in the terminal: npm install & node index.js
 8. Go back into /main directory
