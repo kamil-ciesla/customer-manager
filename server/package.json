@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines":{
-    "nodes":"14.x"
+  "engines": {
+    "nodes": "14.x"
   },
   "dependencies": {
     "cors": "^2.8.5",
