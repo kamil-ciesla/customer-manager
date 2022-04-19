@@ -1,1 +1,1 @@
-export const SERVER_BASE_LINK = 'http://localhost:5000'
+export const SERVER_BASE_LINK = process.env.BACKEND_SERVER_LINK || 'http://localhost:5000'
