@@ -1,1 +1,0 @@
-export const SERVER_BASE_LINK = 'https://customer-manager-server.vercel.app'
