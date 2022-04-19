@@ -20,6 +20,6 @@ Requirements:
 8. Go back into /main directory
 8. Go into /client subdirectory
 9. Enter the following line in the terminal: npm install & npm start
-10. Open the browser and open http://localhost:3000
+10. Open the browser and go on http://localhost:3000
 
 In case of any questions, email me: kamil.ciesla.dev@gmail.com
