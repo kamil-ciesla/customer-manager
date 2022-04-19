@@ -67,6 +67,7 @@ function App() {
           </div>
         </div>
       </Paper>
+      <div className='author'>Created by Kamil Cieśla</div>
     </div >
   );
 }

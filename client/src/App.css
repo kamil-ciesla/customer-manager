@@ -13,3 +13,10 @@
     display:flex;
     flex-direction: row;
 }
+.author{
+    position:fixed;
+    right: 2rem;
+    bottom: 1rem;
+    color:rgb(50, 50, 50);
+    font-size: 0.75rem;
+}
